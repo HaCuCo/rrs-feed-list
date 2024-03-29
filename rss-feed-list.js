@@ -1,29 +1,34 @@
-const defaults = {
-  title: '',
-  rows: 5
-}
-
 class RssFeedList extends HTMLElement {
-  title = defaults.title;
-  rows = defaults.rows;
+  title = '';
+  rows = 5;
 
   set hass(hass) {
     if (!this.content) {
       this.innerHTML = `
-              <ha-card header="${this.title}">
-                <div class="card-content">Hi</div>
-              </ha-card>
-            `;
+        <ha-card header="Example-card">
+          <div class="card-content"></div>
+        </ha-card>
+      `;
       this.content = this.querySelector("div");
     }
+
+    const entityId = this.config.entity;
+    const state = hass.states[entityId];
+    const stateStr = state ? state.state : "unavailable";
+
+    this.content.innerHTML = `
+      The state of ${entityId} is ${stateStr}!
+      <br><br>
+      <img src="http://via.placeholder.com/350x150">
+    `;
   }
 
   setConfig(config) {
     if (!config.entity) {
       throw new Error("You need to define an entity");
     }
-    if (config.rows) this.rows = config.rows;
-    if (config.title) this.title = config.title;
+    //if (config.rows) this.rows = config.rows;
+    //if (config.title) this.title = config.title;
 
     this.config = config;
   }
@@ -35,11 +40,11 @@ class RssFeedList extends HTMLElement {
 
 customElements.define('rss-feed-list', RssFeedList);
 
-window.customCards = window.customCards || [];
+/* window.customCards = window.customCards || [];
 
 window.customCards.push({
   type: "rss-feed-list",
   name: "Rss Feed List",
   preview: true,
-  description: "The List Card generate table with data from sensor that provides data as a list of attributes."
-});
+  description: "Rss Feed Card"
+});*/
