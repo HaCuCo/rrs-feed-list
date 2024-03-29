@@ -5,7 +5,7 @@ class RssFeedList extends HTMLElement {
   set hass(hass) {
     if (!this.content) {
       this.innerHTML = `
-        <ha-card header="Example-card">
+        <ha-card header="${this.title}">
           <div class="card-content"></div>
         </ha-card>
       `;
@@ -27,8 +27,8 @@ class RssFeedList extends HTMLElement {
     if (!config.entity) {
       throw new Error("You need to define an entity");
     }
-    //if (config.rows) this.rows = config.rows;
-    //if (config.title) this.title = config.title;
+    if (config.rows) this.rows = config.rows;
+    if (config.title) this.title = config.title;
 
     this.config = config;
   }
