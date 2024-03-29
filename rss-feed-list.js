@@ -6,12 +6,18 @@ class RssFeedList extends HTMLElement {
 
     setConfig(config) {
         if(!config.entity) throw new Error('Please define an entity');
+        const root = this.shadowRoot;
     }
 
     set hass(hass) {
+        const root = this.shadowRoot;
         root.lastChild.hass = hass;
         root.getElementById('container').innerHTML = <h1>Hi</h1>;
     }
+
+    getCardSize() {
+        return 1;
+      }
 }
 
 customElements.define('rss-feed-list', RssFeedList);
