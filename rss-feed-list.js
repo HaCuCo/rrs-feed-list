@@ -1,8 +1,17 @@
+const defaults = {
+  rows: 5
+}
+
 class RssFeedList extends HTMLElement {
+  title = '';
+  rows = defaults.rows;
+
   set hass(hass) {
+    if (config.rows) rows = config.rows;
+
     if (!this.content) {
       this.innerHTML = `
-              <ha-card header="Example-card">
+              <ha-card header="${this.title}">
                 <div class="card-content">Hi</div>
               </ha-card>
             `;
@@ -14,6 +23,9 @@ class RssFeedList extends HTMLElement {
     if (!config.entity) {
       throw new Error("You need to define an entity");
     }
+    if (config.rows) this.rows = config.rows;
+    if (config.title) this.title = config.title;
+
     this.config = config;
   }
 
