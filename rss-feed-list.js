@@ -12,7 +12,7 @@ class RssFeedList extends HTMLElement {
     set hass(hass) {
         const root = this.shadowRoot;
         root.lastChild.hass = hass;
-        root.getElementById('container').innerHTML = <h1>Hi</h1>;
+        root.getElementById('container').innerHTML = "<h1>Hi</h1>";
     }
 
     getCardSize() {
