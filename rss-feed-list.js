@@ -52,6 +52,8 @@ class RssFeedList extends HTMLElement {
     if (config.summary_key) this.summaryKey = config.summary_key;
     if (config.link_key) this.linkKey = config.link_key;
 
+    this.entityId = config.entity;
+
     this.config = config;
   }
 
