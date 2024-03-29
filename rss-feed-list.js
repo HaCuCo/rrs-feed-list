@@ -41,6 +41,7 @@ class RssFeedList extends HTMLElement {
   }
 
   setConfig(config) {
+    console.log(config);
     if (!config.entity) {
       throw new Error("You need to define an entity");
     }
