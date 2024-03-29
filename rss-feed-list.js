@@ -1,14 +1,13 @@
 const defaults = {
+  title: '',
   rows: 5
 }
 
 class RssFeedList extends HTMLElement {
-  title = '';
+  title = defaults.title;
   rows = defaults.rows;
 
   set hass(hass) {
-    if (config.rows) rows = config.rows;
-
     if (!this.content) {
       this.innerHTML = `
               <ha-card header="${this.title}">
