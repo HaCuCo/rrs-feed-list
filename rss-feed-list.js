@@ -1,11 +1,12 @@
 class RssFeedList extends HTMLElement {
+  entityId;
   title = '';
   rows = 5;
-  entities_key = 'entities';
-  title_key = 'title';
-  thumbnail_key = 'thumbnail';
-  summary_key = 'summary';
-  link_key = 'link';
+  entitiesKey = 'entities';
+  titleKey = 'title';
+  thumbnailKey = 'thumbnail';
+  summaryKey = 'summary';
+  linkKey = 'link';
 
   set hass(hass) {
     if (!this.content) {
@@ -17,10 +18,10 @@ class RssFeedList extends HTMLElement {
       this.content = this.querySelector("div");
     }
 
-    const entries = hass.states[entityId][this.entities_key];
+    const entries = hass.states[entityId][this.entitiesKey];
 
     entries.array.forEach(element => {
-      this.content.innerHTML += this.createRow(element[this.thumbnail_key], element[this.title_key], element[this.summary_key], element[this.link_key])
+      this.content.innerHTML += this.createRow(element[this.thumbnailKey], element[this.titleKey], element[this.summaryKey], element[this.linkKey])
     });
   }
 
@@ -45,7 +46,11 @@ class RssFeedList extends HTMLElement {
     }
     if (config.rows) this.rows = config.rows;
     if (config.title) this.title = config.title;
-    if (config.entities_key) this.entities_key = config.entities_key;
+    if (config.entities_key) this.entitiesKey = config.entities_key;
+    if (config.title_key) this.titleKey = config.title_key;
+    if (config.thumbnail_key) this.thumbnailKey = config.thumbnail_key;
+    if (config.summary_key) this.summaryKey = config.summary_key;
+    if (config.link_key) this.linkKey = config.link_key;
 
     this.config = config;
   }
