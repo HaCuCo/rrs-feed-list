@@ -1,23 +1,25 @@
 class RssFeedList extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
+  set hass(hass) {
+    if (!this.content) {
+      this.innerHTML = `
+              <ha-card header="Example-card">
+                <div class="card-content"></div>
+              </ha-card>
+            `;
+      this.content = this.querySelector("div");
     }
+  }
 
-    setConfig(config) {
-        if(!config.entity) throw new Error('Please define an entity');
-        const root = this.shadowRoot;
+  setConfig(config) {
+    if (!config.entity) {
+      throw new Error("You need to define an entity");
     }
+    this.config = config;
+  }
 
-    set hass(hass) {
-        const root = this.shadowRoot;
-        root.lastChild.hass = hass;
-        root.getElementById('container').innerHTML = "<h1>Hi</h1>";
-    }
-
-    getCardSize() {
-        return 1;
-      }
+  getCardSize() {
+    return 1;
+  }
 }
 
 customElements.define('rss-feed-list', RssFeedList);
@@ -25,8 +27,8 @@ customElements.define('rss-feed-list', RssFeedList);
 window.customCards = window.customCards || [];
 
 window.customCards.push({
-    type: "rss-feed-list",
-    name: "Rss Feed List",
-    preview: true,
-    description: "The List Card generate table with data from sensor that provides data as a list of attributes."
-  });
+  type: "rss-feed-list",
+  name: "Rss Feed List",
+  preview: true,
+  description: "The List Card generate table with data from sensor that provides data as a list of attributes."
+});
