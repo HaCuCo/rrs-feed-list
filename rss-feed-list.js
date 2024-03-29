@@ -7,6 +7,11 @@ class RssFeedList extends HTMLElement {
     setConfig(config) {
         if(!config.entity) throw new Error('Please define an entity');
     }
+
+    set hass(hass) {
+        root.lastChild.hass = hass;
+        root.getElementById('container').innerHTML = <h1>Hi</h1>;
+    }
 }
 
 customElements.define('rss-feed-list', RssFeedList);
