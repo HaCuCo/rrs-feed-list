@@ -3,7 +3,7 @@ class RssFeedList extends HTMLElement {
     if (!this.content) {
       this.innerHTML = `
               <ha-card header="Example-card">
-                <div class="card-content"></div>
+                <div class="card-content">Hi</div>
               </ha-card>
             `;
       this.content = this.querySelector("div");
