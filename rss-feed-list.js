@@ -1,6 +1,11 @@
 class RssFeedList extends HTMLElement {
   title = '';
   rows = 5;
+  entities_key = 'entities';
+  title_key = 'title';
+  thumbnail_key = 'thumbnail';
+  summary_key = 'summary';
+  link_key = 'link';
 
   set hass(hass) {
     if (!this.content) {
@@ -12,15 +17,26 @@ class RssFeedList extends HTMLElement {
       this.content = this.querySelector("div");
     }
 
-    const entityId = this.config.entity;
-    const state = hass.states[entityId];
-    const stateStr = state ? state.state : "unavailable";
+    const entries = hass.states[entityId][this.entities_key];
 
-    this.content.innerHTML = `
-      The state of ${entityId} is ${stateStr}!
-      <br><br>
-      <img src="http://via.placeholder.com/350x150">
-    `;
+    entries.array.forEach(element => {
+      this.content.innerHTML += this.createRow(element[this.thumbnail_key], element[this.title_key], element[this.summary_key], element[this.link_key])
+    });
+  }
+
+  createRow(thumb, title, summary, link) {
+    return `
+    <div>
+      <div>
+        <image src="${thumb}"
+        <h2>${title}</h2>
+      </div>
+      <div>
+        <p>${summary}</p>
+        <a href="${link}">${title}</a>
+      </div>
+    </div>
+    `
   }
 
   setConfig(config) {
@@ -29,6 +45,7 @@ class RssFeedList extends HTMLElement {
     }
     if (config.rows) this.rows = config.rows;
     if (config.title) this.title = config.title;
+    if (config.entities_key) this.entities_key = config.entities_key;
 
     this.config = config;
   }
