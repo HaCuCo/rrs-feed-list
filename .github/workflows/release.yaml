@@ -31,7 +31,6 @@ jobs:
         uses: svenstaro/upload-release-action@2.9.0
 
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: dist/rss-feed-list.js
           asset_name: rss-feed-list.js
           tag: ${{ github.ref }}
