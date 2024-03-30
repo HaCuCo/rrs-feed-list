@@ -1,6 +1,6 @@
 {
   "name": "rrs-feed-list",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "This is a simple List Card for Home Assistant, which displays Feed Entry of an specific Entity Sensor.",
   "type": "module",
   "scripts": {
