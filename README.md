@@ -1,10 +1,10 @@
-rrs-feed-list
+# rrs-feed-list
 
 This is a simple List Card for Home Assistant, which displays Feed Entry of an specific Entity Sensor.
 
 > Workds great with [feedparser](https://github.com/custom-components/feedparser)!
 
-# Configuration
+## Configuration
 
 | Key           | Defaults   | Required | Description                              |
 | ------------- | ---------- | -------- | ---------------------------------------- |
@@ -16,21 +16,23 @@ This is a simple List Card for Home Assistant, which displays Feed Entry of an s
 | thumbnail_key | empty      | false    | Sets the key where to find the thumbnail |
 | summary_key   | 'summary'  | false    | Sets the key where to find the summary   |
 | link_key      | 'link'     | false    | Sets the key where to find the link      |
+| date_key      | 'published | false    | Sets the key where to find the date      |
 
 Example
 
-```
+```yaml
 type: custom:rss-feed-list-test
 entity: sensor.the_feed
 rows: 3
 title: Awesome Title
-entities_key: 'entities'
+entities_key: "entities"
 thumbnail_key: awesome[0].thumbnail.url #  <--- Nested objects are possible with dot
 title_key: awesomeTitle
 summary_key: AndSoOn
 link_key: More_keys
+date_key: w_h_e_n
 ```
 
-# Example
+## Example
 
 ![Example](/assets/example.png)
