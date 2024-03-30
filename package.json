@@ -10,7 +10,7 @@
   "author": "Dnl Rsr <dnlnrsr@github>",
   "license": "ISC",
   "dependencies": {
-    "lit": "^2.8.0",
+    "lit": "^3.1.2",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
@@ -18,6 +18,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "rollup": "^4.13.2",
     "rollup-plugin-serve": "^1.1.1",
-    "rollup-plugin-uglify": "^6.0.4"
+    "rollup-plugin-uglify": "^6.0.4",
+    "eslint": "^8.57.0"
   }
 }
