@@ -1,5 +1,6 @@
 {
   "name": "Rss Feed List",
   "render_readme": true,
-  "filename": "rss-feed-list.js"
+  "filename": "rss-feed-list.js",
+  "content_in_root": false
 }
