@@ -1,4 +1,4 @@
-# hacs-rrs-feed-list
+rrs-feed-list
 
 This is a simple List Card for Home Assistant, which displays Feed Entry of an specific Entity Sensor.
 
