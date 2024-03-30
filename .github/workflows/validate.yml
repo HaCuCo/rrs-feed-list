@@ -9,18 +9,15 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Build
+    runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/checkout@v1
+      - uses: "actions/checkout@v3"
+      - name: HACS Validation
+        uses: "hacs/action@main"
+        with:
+          category: "theme"
       - name: Build
         run: |
           yarn install
           yarn build
-  validate-hacs:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: "actions/checkout@v3"
-      - name: HACS validation
-        uses: "hacs/action@main"
-        with:
-          category: "theme"
