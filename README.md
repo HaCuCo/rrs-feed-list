@@ -1,6 +1,11 @@
 # hacs-rrs-feed-list
 
-Config 
+This is a simple List Card for Home Assistant, which displays Feed Entry of an specific Entity Sensor.
+
+> Workds great with [feedparser](https://github.com/custom-components/feedparser)!
+
+# Configuration
+
 | Key | Defaults |Required | Description |
 |-----|----------|---------|-------------|
 | entity | empty | true | The Rss Feed Entity |
@@ -20,7 +25,7 @@ entity: sensor.the_feed
 rows: 3
 title: Awesome Title
 entities_key: 'entities'
-thumbnail_key: awesome.thumbnail.url // <--- Nested objects are possible with dot
+thumbnail_key: awesome[0].thumbnail.url #  <--- Nested objects are possible with dot
 title_key: awesomeTitle
 summary_key: AndSoOn
 link_key: More_keys

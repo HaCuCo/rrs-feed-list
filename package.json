@@ -1,0 +1,23 @@
+{
+  "name": "rrs-feed-list",
+  "version": "0.0.1",
+  "description": "This is a simple List Card for Home Assistant, which displays Feed Entry of an specific Entity Sensor.",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "start": "rollup -c rollup.config.dev.js -w"
+  },
+  "author": "Dnl Rsr <dnlnrsr@github>",
+  "license": "ISC",
+  "dependencies": {
+    "lit": "^2.8.0",
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.13.2",
+    "rollup-plugin-serve": "^1.1.1",
+    "rollup-plugin-uglify": "^6.0.4"
+  }
+}

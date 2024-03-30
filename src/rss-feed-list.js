@@ -1,7 +1,6 @@
-import _ from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm";
-import { LitElement, html, css } from "https://unpkg.com/lit@2.8.0?module";
-
-import { unsafeHTML } from "https://unpkg.com/lit@2.8.0/directives/unsafe-html.js?module";
+import { LitElement, css, html } from "lit";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
+import get from "lodash-es/get";
 
 class RssFeedList extends LitElement {
   entityId = "";
@@ -21,23 +20,25 @@ class RssFeedList extends LitElement {
   }
 
   render() {
-    let entries = this.hass.states[this.entityId].attributes[
-      this.entriesKey
-    ].slice(0, this.rows);
+    let entries =
+      this.hass.states[this.entityId].attributes[this.entriesKey].slice(
+        0,
+        this.rows
+      ) ?? [];
 
     return html`
       <ha-card header="${this.title}">
         <div class="card-content">
           ${entries.map((entry, index) => {
-      const thumb = _.get(entry, this.thumbnailKey);
-      const link = _.get(entry, this.linkKey);
-      const title = _.get(entry, this.titleKey);
-      const summary = _.get(entry, this.summaryKey).replace(
-        /<img[^>]*>/g,
-        ""
-      );
+            const thumb = get(entry, this.thumbnailKey);
+            const link = get(entry, this.linkKey);
+            const title = get(entry, this.titleKey);
+            const summary = get(entry, this.summaryKey).replace(
+              /<img[^>]*>/g,
+              ""
+            );
 
-      return html`
+            return html`
               <div>
                 ${index !== 0 ? html`<hr class="rounded" />` : undefined}
                 <div class="container">
@@ -51,7 +52,7 @@ class RssFeedList extends LitElement {
                 </div>
               </div>
             `;
-    })}
+          })}
         </div>
       </ha-card>
     `;
@@ -119,13 +120,13 @@ class RssFeedList extends LitElement {
   }
 }
 
-customElements.define("rss-feed-list", RssFeedList);
+customElements.define("rss-feed-list-dev", RssFeedList);
 
 window.customCards = window.customCards || [];
 
 window.customCards.push({
-  type: "rss-feed-list",
+  type: "rss-feed-list-dev",
   name: "Rss Feed List",
   preview: true,
-  description: "Rss Feed Card"
+  description: "Rss Feed Card Develop",
 });
