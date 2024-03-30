@@ -120,10 +120,12 @@ class RssFeedList extends LitElement {
   }
 }
 
+// eslint-disable-next-line no-undef
 customElements.define("rss-feed-list", RssFeedList);
 
+// eslint-disable-next-line no-undef
 window.customCards = window.customCards || [];
-
+// eslint-disable-next-line no-undef
 window.customCards.push({
   type: "rss-feed-list",
   name: "Rss Feed List",
