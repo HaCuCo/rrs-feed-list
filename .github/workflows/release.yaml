@@ -24,7 +24,7 @@ jobs:
         run: |
           yarn install
           yarn build
-          git add dist/*
+          git add -f dist/*
           git commit -m "Uploaded Release ${{github.ref}}"
           git push
 
