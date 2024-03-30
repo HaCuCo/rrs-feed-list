@@ -1,0 +1,13 @@
+{
+  "extends": ["eslint:recommended", "plugin:lit/recommended"],
+  "plugins": ["lit"],
+  "rules": {
+    "lit/no-legacy-template-syntax": "error",
+    "lit/no-template-arrow": "warn"
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+    "ecmaVersion": "latest"
+  }
+}
