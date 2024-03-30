@@ -1,5 +1,7 @@
+import dayjs from "dayjs";
 import { LitElement, css, html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
+import styleVariables from "./styles/variables";
 import get from "lodash-es/get";
 
 class RssFeedList extends LitElement {
@@ -11,6 +13,7 @@ class RssFeedList extends LitElement {
   thumbnailKey;
   summaryKey = "summary";
   linkKey = "link";
+  dateKey = "published";
 
   static get properties() {
     return {
@@ -37,17 +40,29 @@ class RssFeedList extends LitElement {
               /<img[^>]*>/g,
               ""
             );
+            const date = dayjs(get(entry, this.dateKey));
 
             return html`
               <div>
                 ${index !== 0 ? html`<hr class="rounded" />` : undefined}
                 <div class="container">
                   <div class="header">
+                    <div class="dateTime">
+                      <span class="time"
+                        >${date.format("HH:mm").concat(" Uhr")}</span
+                      >
+                      <span class="date">${date.format("DD.MM.YYYY")}</span>
+                    </div>
                     <h3><a href="${link}">${title}</a></h3>
                   </div>
                   <div class="content">
-                    ${this.thumbnailKey && html`<img src="${thumb}" />`}
-                    <p>${unsafeHTML(summary)}</p>
+                    <div class="metaContent">
+                      ${this.thumbnailKey &&
+                      html`<img src="${thumb}" class="thumb" />`}
+                    </div>
+                    <div class="text">
+                      <p>${unsafeHTML(summary)}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -69,6 +84,7 @@ class RssFeedList extends LitElement {
     if (config.thumbnail_key) this.thumbnailKey = config.thumbnail_key;
     if (config.summary_key) this.summaryKey = config.summary_key;
     if (config.link_key) this.linkKey = config.link_key;
+    if (config.date_key) this.dateKey = config.date_key;
 
     this.entityId = config.entity;
 
@@ -81,35 +97,71 @@ class RssFeedList extends LitElement {
 
   static get styles() {
     return css`
-      .header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        height: 2em;
-        gap: 5px;
-      }
-
-      .content {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 1em;
-      }
-
-      .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 1em;
-      }
-
       .card-content {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        gap: 1em;
+
+        .container {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: ${styleVariables.defaultGap};
+
+          .header {
+            display: flex;
+            flex-direction: column;
+            gap: ${styleVariables.defaultGap};
+
+            .dateTime {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              line-height: 5px;
+
+              .date {
+                font-size: 0.7em;
+              }
+
+              .time {
+                font-size: 0.7em;
+              }
+            }
+
+            h3 {
+              margin: 0 !important;
+              font-size: 0.9em;
+            }
+          }
+
+          .content {
+            display: flex;
+            flex-direction: row;
+            gap: ${styleVariables.defaultGap};
+
+            .text {
+              p {
+                margin: 0 !important;
+                font-size: 0.9em;
+                line-height: 14px;
+              }
+            }
+
+            .metaContent {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              margin-top: 3px;
+
+              .thumb {
+                max-height: 6em;
+              }
+            }
+          }
+        }
       }
+
+      // Divider
       hr.rounded {
         border-top: 2px solid #bbbbbb81;
         border-radius: 5px;
@@ -121,14 +173,14 @@ class RssFeedList extends LitElement {
 }
 
 // eslint-disable-next-line no-undef
-customElements.define("rss-feed-list", RssFeedList);
+customElements.define("rss-feed-list-dev", RssFeedList);
 
-// eslint-disable-next-line no-undef
-window.customCards = window.customCards || [];
-// eslint-disable-next-line no-undef
-window.customCards.push({
-  type: "rss-feed-list",
-  name: "Rss Feed List",
-  preview: true,
-  description: "Rss Feed Card",
-});
+// // eslint-disable-next-line no-undef
+// window.customCards = window.customCards || [];
+// // eslint-disable-next-line no-undef
+// window.customCards.push({
+//   type: "rss-feed-list",
+//   name: "Rss Feed List",
+//   preview: true,
+//   description: "Rss Feed Card",
+// });

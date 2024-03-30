@@ -1,6 +1,7 @@
 import serve from "rollup-plugin-serve";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import fs from "fs";
+import commonjs from "@rollup/plugin-commonjs";
 
 export default {
   input: ["src/rss-feed-list.js"],
@@ -9,6 +10,7 @@ export default {
     file: "./dist/rss-feed-list-dev.js",
   },
   plugins: [
+    commonjs(),
     nodeResolve(),
     serve({
       contentBase: "./dist",
