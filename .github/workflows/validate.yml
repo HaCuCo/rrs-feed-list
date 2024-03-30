@@ -8,6 +8,15 @@ on:
   workflow_dispatch:
 
 jobs:
+  build:
+    name: Test build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build
+        run: |
+          yarn install
+          yarn build
   validate-hacs:
     runs-on: "ubuntu-latest"
     steps:
