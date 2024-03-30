@@ -120,13 +120,13 @@ class RssFeedList extends LitElement {
   }
 }
 
-customElements.define("rss-feed-list-dev", RssFeedList);
+customElements.define("rss-feed-list", RssFeedList);
 
 window.customCards = window.customCards || [];
 
 window.customCards.push({
-  type: "rss-feed-list-dev",
+  type: "rss-feed-list",
   name: "Rss Feed List",
   preview: true,
-  description: "Rss Feed Card Develop",
+  description: "Rss Feed Card",
 });
