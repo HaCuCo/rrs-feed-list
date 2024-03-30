@@ -29,6 +29,18 @@ class RssFeedList extends LitElement {
         this.rows
       ) ?? [];
 
+    entries.sort((a, b) => {
+      const aDate = dayjs(get(a, this.dateKey));
+      const bDate = dayjs(get(b, this.dateKey));
+
+      if (aDate.isBefore(bDate)) {
+        return 1;
+      } else if (aDate.isAfter(bDate)) {
+        return -1;
+      }
+      return 0;
+    });
+
     return html`
       <ha-card header="${this.title}">
         <div class="card-content">
@@ -57,8 +69,7 @@ class RssFeedList extends LitElement {
                   </div>
                   <div class="content">
                     <div class="metaContent">
-                      ${this.thumbnailKey &&
-                      html`<img src="${thumb}" class="thumb" />`}
+                      ${thumb && html`<img src="${thumb}" class="thumb" />`}
                     </div>
                     <div class="text">
                       <p>${unsafeHTML(summary)}</p>
@@ -173,14 +184,14 @@ class RssFeedList extends LitElement {
 }
 
 // eslint-disable-next-line no-undef
-customElements.define("rss-feed-list-dev", RssFeedList);
+customElements.define("rss-feed-list", RssFeedList);
 
-// // eslint-disable-next-line no-undef
-// window.customCards = window.customCards || [];
-// // eslint-disable-next-line no-undef
-// window.customCards.push({
-//   type: "rss-feed-list",
-//   name: "Rss Feed List",
-//   preview: true,
-//   description: "Rss Feed Card",
-// });
+// eslint-disable-next-line no-undef
+window.customCards = window.customCards || [];
+// eslint-disable-next-line no-undef
+window.customCards.push({
+  type: "rss-feed-list",
+  name: "Rss Feed List",
+  preview: true,
+  description: "Rss Feed Card",
+});
