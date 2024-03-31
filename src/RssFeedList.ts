@@ -140,9 +140,9 @@ class RssFeedList extends TailwindElement(styles) {
 }
 
 // eslint-disable-next-line no-undef
-customElements.define('rss-feed-list-dev', RssFeedList);
+customElements.define('rss-feed-list', RssFeedList);
 
-/*declare global {
+declare global {
   // eslint-disable-next-line no-unused-vars
   interface Window {
     customCards: any;
@@ -157,5 +157,5 @@ window.customCards.push({
   type: 'rss-feed-list',
   name: 'Rss Feed List',
   preview: true,
-  description: 'Rss Feed Card',
-});*/
+  description: 'Rss Feed Card'
+});
