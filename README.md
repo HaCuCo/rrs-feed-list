@@ -1,36 +1,44 @@
 # rrs-feed-list
 
-This is a simple List Card for Home Assistant, which displays Feed Entry of an specific Entity Sensor.
+This is a simple List Card for Home Assistant, which displays Feed Entry of a specific Entity Sensor.
 
-> Workds great with [feedparser](https://github.com/custom-components/feedparser)!
+> Works great with [feedparser](https://github.com/custom-components/feedparser)!
 
 ## Configuration
 
-| Key           | Defaults   | Required | Description                              |
-| ------------- | ---------- | -------- | ---------------------------------------- |
-| entity        | empty      | true     | The Rss Feed Entity                      |
-| title         | empty      | false    | Sets the title of the card               |
-| rows          | 5          | false    | Sets the maximun entries to show         |
-| entities_key  | 'entities' | false    | Sets the key where to find the data      |
-| title_key     | 'title'    | false    | Sets the key where to find the title     |
-| thumbnail_key | empty      | false    | Sets the key where to find the thumbnail |
-| summary_key   | 'summary'  | false    | Sets the key where to find the summary   |
-| link_key      | 'link'     | false    | Sets the key where to find the link      |
-| date_key      | 'published | false    | Sets the key where to find the date      |
+### Config
+
+| Key      | Defaults | Required | Description                        |
+|----------|----------|----------|------------------------------------|
+| entities | -        | true     | The Sensor-Entity to get the Feeds |
+| rows     | 5        | false    | Sets the maximum entries to show   |
+
+### Entity
+
+| Key           | Defaults | Required | Description                              |
+|---------------|----------|----------|------------------------------------------|
+| entity        | -        | true     | The Rss Feed Entity                      |
+| date_key      | -        | true     | The key of the date (e.g. published)     |
+| from          | -        | true     | From where the feed is (e.g. google)     |
+| entries_key   | entries  | false    | Sets the key where to find the data      |
+| title_key     | title    | false    | Sets the key where to find the title     |
+| thumbnail_key | -        | false    | Sets the key where to find the thumbnail |
+| summary_key   | summary  | false    | Sets the key where to find the summary   |
+| link_key      | link     | false    | Sets the key where to find the link      |
 
 Example
 
 ```yaml
 type: custom:rss-feed-list-test
-entity: sensor.the_feed
+entities:
+  - entity: sensor.google_feed
+    from: google
+    date_key: published
+    title_key: Awesome Title
+    thumbnail_key: awesome[0].thumbnail.url #  <--- Nested objects are possible with dot
+    summary_key: "AndSoOn"
+    link_key: More_keys
 rows: 3
-title: Awesome Title
-entities_key: "entities"
-thumbnail_key: awesome[0].thumbnail.url #  <--- Nested objects are possible with dot
-title_key: awesomeTitle
-summary_key: AndSoOn
-link_key: More_keys
-date_key: w_h_e_n
 ```
 
 ## Example
