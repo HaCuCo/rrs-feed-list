@@ -4,7 +4,7 @@ import { uglify } from "rollup-plugin-uglify";
 import commonjs from "@rollup/plugin-commonjs";
 
 export default {
-  input: ["src/rss-feed-list.js"],
+  input: ["src/RssFeedList.ts"],
   output: {
     dir: "./dist",
     format: "es",

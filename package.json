@@ -11,18 +11,30 @@
   "author": "Dnl Rsr <dnlnrsr@github>",
   "license": "ISC",
   "dependencies": {
+    "custom-card-helpers": "^1.9.0",
     "dayjs": "^1.11.10",
     "lit": "^3.1.2",
-    "lodash-es": "^4.17.21"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.3",
+    "@babel/eslint-parser": "^7.24.1",
+    "@babel/plugin-proposal-decorators": "^7.24.1",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/lodash": "^4.17.0",
+    "@typescript-eslint/parser": "^7.4.0",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-lit": "^1.11.0",
+    "prettier": "^3.2.5",
     "rollup": "^4.13.2",
     "rollup-plugin-serve": "^1.1.1",
-    "rollup-plugin-uglify": "^6.0.4"
+    "rollup-plugin-uglify": "^6.0.4",
+    "ts-lit-plugin": "^2.0.2",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.3"
   }
 }
