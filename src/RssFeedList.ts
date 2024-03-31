@@ -1,12 +1,25 @@
 import dayjs from 'dayjs';
-import { html } from 'lit';
+import { css, html } from 'lit';
 import { get } from 'lodash';
 import { property, state } from 'lit/decorators.js';
 import { HassConfig } from './types';
 import { HomeAssistant } from 'custom-card-helpers';
 import { TailwindElement } from './shared/TailwindElement.ts';
 
-class RssFeedList extends TailwindElement() {
+const styles = css`
+  .thumbImage {
+    width: 100%;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+  }
+`;
+
+class RssFeedList extends TailwindElement(styles) {
   private entityId = '';
   private cardTitle = '';
   private rows = 5;
@@ -28,7 +41,7 @@ class RssFeedList extends TailwindElement() {
       throw new Error('You need to define an entity');
     }
     if (config.rows) this.rows = config.rows;
-    if (config.cardTitle) this.cardTitle = config.cardTitle;
+    if (config.title) this.cardTitle = config.title;
     if (config.entries_key) this.entriesKey = config.entries_key;
     if (config.title_key) this.titleKey = config.title_key;
     if (config.thumbnail_key) this.thumbnailKey = config.thumbnail_key;
@@ -39,6 +52,10 @@ class RssFeedList extends TailwindElement() {
     this.entityId = config.entity;
 
     this.config = config;
+  }
+
+  private onLinkButton(link: string) {
+    window.open(link, '__blank');
   }
 
   render() {
@@ -64,44 +81,48 @@ class RssFeedList extends TailwindElement() {
     });
 
     return html`
-      <ha-card header="${this.cardTitle}">
-        <div class="card-content">
-          ${entries.map((entry: any, index: number) => {
+      <div>
+        ${this.cardTitle ??
+        html` <h2 class="card-title">${this.cardTitle}</h2> `}
+        <div class="container">
+          ${entries.map((entry: any) => {
             let thumb;
             if (this.thumbnailKey) {
               thumb = get(entry, this.thumbnailKey);
             }
             const link = get(entry, this.linkKey);
             const title = get(entry, this.titleKey);
-            const summary = get(entry, this.summaryKey).replace(
-              /<img[^>]*>/g,
-              '',
-            );
+            const summary = get(entry, this.summaryKey)
+              .replace(/<img[^>]*>/g, '')
+              .replace(/<a[^>]*>.*<\/a>/, '')
+              .replace(/<p[^>]*>/g, '')
+              .replace(/<\/p>/g, '')
+              .replace(/\(\)/g, '');
             const date = dayjs(get(entry, this.dateKey));
 
-            // eslint-disable-next-line no-undef
-            console.log(date);
-            // eslint-disable-next-line no-undef
-            console.log(link);
-            // eslint-disable-next-line no-undef
-            console.log(index);
             return html`
-              <div class="card w-96 glass">
+              <div class="card shadow-xl bg-base-100 image-full">
                 <figure>
-                  <img src=${thumb} alt="car!" />
+                  <img src=${thumb} alt=${thumb} />
                 </figure>
                 <div class="card-body">
+                  <span>${date.format('DD.MM HH.mm')}</span>
                   <h2 class="card-title">${title}</h2>
                   <p>${summary}</p>
                   <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Go To</button>
+                    <button
+                      class="btn btn-primary"
+                      @click="${() => this.onLinkButton(link)}"
+                    >
+                      Go To
+                    </button>
                   </div>
                 </div>
               </div>
             `;
           })}
         </div>
-      </ha-card>
+      </div>
     `;
   }
 
