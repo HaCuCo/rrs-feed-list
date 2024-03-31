@@ -3,6 +3,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import fs from 'fs';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
+import postcss from 'rollup-plugin-postcss';
 
 export default {
   input: ['src/RssFeedList.ts'],
@@ -14,6 +15,7 @@ export default {
     commonjs(),
     nodeResolve(),
     typescript(),
+    postcss(),
     serve({
       contentBase: './dist',
       host: '0.0.0.0',

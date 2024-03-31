@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
-import { css, html, LitElement } from 'lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { html } from 'lit';
 import { get } from 'lodash';
 import { property, state } from 'lit/decorators.js';
 import { HassConfig } from './types';
 import { HomeAssistant } from 'custom-card-helpers';
+import { TailwindElement } from './shared/TailwindElement.ts';
 
-class RssFeedList extends LitElement {
+class RssFeedList extends TailwindElement() {
   private entityId = '';
   private cardTitle = '';
   private rows = 5;
@@ -39,83 +39,6 @@ class RssFeedList extends LitElement {
     this.entityId = config.entity;
 
     this.config = config;
-  }
-
-  static get styles() {
-    return css`
-      .card-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-        .container {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          gap: 5px;
-
-          .header {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-
-            .dateTime {
-              display: flex;
-              flex-direction: row;
-              justify-content: space-between;
-              line-height: 5px;
-
-              .date {
-                font-size: 0.7em;
-              }
-
-              .time {
-                font-size: 0.7em;
-              }
-            }
-
-            h3 {
-              margin: 0 !important;
-              font-size: 0.9em;
-            }
-          }
-
-          .content {
-            display: flex;
-            flex-direction: row;
-            gap: 5px;
-
-            .text {
-              p {
-                margin: 0 !important;
-                font-size: 0.9em;
-                line-height: 14px;
-              }
-            }
-
-            .metaContent {
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-              margin-top: 3px;
-
-              .thumb {
-                max-height: 6em;
-              }
-            }
-          }
-        }
-      }
-
-      // Divider
-
-      hr.rounded {
-        border-top: 2px solid #bbbbbb81;
-        border-radius: 5px;
-        background-color: transparent;
-        height: 0;
-      }
-    `;
   }
 
   render() {
@@ -156,26 +79,22 @@ class RssFeedList extends LitElement {
             );
             const date = dayjs(get(entry, this.dateKey));
 
+            // eslint-disable-next-line no-undef
+            console.log(date);
+            // eslint-disable-next-line no-undef
+            console.log(link);
+            // eslint-disable-next-line no-undef
+            console.log(index);
             return html`
-              <div>
-                ${index !== 0 ? html` <hr class="rounded" />` : undefined}
-                <div class="container">
-                  <div class="header">
-                    <div class="dateTime">
-                      <span class="time"
-                        >${date.format('HH:mm').concat(' Uhr')}</span
-                      >
-                      <span class="date">${date.format('DD.MM.YYYY')}</span>
-                    </div>
-                    <h3><a href="${link}">${title}</a></h3>
-                  </div>
-                  <div class="content">
-                    <div class="metaContent">
-                      ${thumb && html`<img src="${thumb}" class="thumb" />`}
-                    </div>
-                    <div class="text">
-                      <p>${unsafeHTML(summary)}</p>
-                    </div>
+              <div class="card w-96 glass">
+                <figure>
+                  <img src=${thumb} alt="car!" />
+                </figure>
+                <div class="card-body">
+                  <h2 class="card-title">${title}</h2>
+                  <p>${summary}</p>
+                  <div class="card-actions justify-end">
+                    <button class="btn btn-primary">Go To</button>
                   </div>
                 </div>
               </div>

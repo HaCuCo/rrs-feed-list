@@ -11,7 +11,3 @@ export interface HassConfig extends LovelaceConfig {
   link_key?: string;
   date_key?: string;
 }
-
-interface Attributes {
-  [key: string]: string | undefined;
-}
