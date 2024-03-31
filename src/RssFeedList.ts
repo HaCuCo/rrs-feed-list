@@ -55,6 +55,7 @@ class RssFeedList extends TailwindElement(styles) {
   }
 
   private onLinkButton(link: string) {
+    // eslint-disable-next-line no-undef
     window.open(link, '__blank');
   }
 
