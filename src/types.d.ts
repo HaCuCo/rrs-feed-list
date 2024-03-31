@@ -1,14 +1,14 @@
 import { LovelaceConfig } from 'custom-card-helpers';
 
 export interface HassConfig extends LovelaceConfig {
-  entities: HassEntity[];
+  entities: RssFeedEntity[];
   rows?: number;
 }
 
-interface HassEntity {
+export interface RssFeedEntity {
   entity: string;
   date_key: string;
-  cardTitle?: string;
+  from: string;
   entries_key?: string;
   title_key?: string;
   thumbnail_key?: string;
